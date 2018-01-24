@@ -21,8 +21,9 @@
 </head>
 <body>
 <div class="container">
-	<h2><label for="editor1">Document Editor</label></h2>
-	<textarea id="editor1">
+	<h2><label for="pageShow">Document Editor</label></h2>
+	<div><button id="tts">获取内容</button></div>
+	<textarea id="pageShow">
 		&lt;h2 style="text-align: center;"&gt;The Flavorful Tuscany Meetup&lt;/h2&gt;
 		&lt;p style="text-align: center;"&gt;&lt;span style="color: #007ac9;"&gt;&lt;strong&gt;Welcome letter&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;
 		&lt;p&gt;Dear Guest,&lt;/p&gt;
@@ -62,7 +63,7 @@
 	</textarea>
 </div>
 <script>
-	CKEDITOR.replace( 'editor1', {
+	CKEDITOR.replace( 'pageShow', {
 		// Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar
 		// The full preset from CDN which we used as a base provides more features than we need.
 		// Also by default it comes with a 3-line toolbar. Here we put all buttons in a single row.
@@ -74,8 +75,8 @@
 			{ name: 'colors', items: [ 'TextColor', 'BGColor' ] },
 			{ name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
 			{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-			{ name: 'insert', items: [ 'Image', 'Table' ] },
-			{ name: 'tools', items: [ 'Maximize' ] }
+			{ name: 'insert', items: [ 'Image', 'Table','PageBreak' ] },
+			{ name: 'tools', items: [ 'Maximize' ,'Save'] }
 		],
 
 		// Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
@@ -92,8 +93,11 @@
 		extraAllowedContent: 'img[width,height,align]',
 
 		// Enabling extra plugins, available in the full-all preset: http://ckeditor.com/presets-all
-		extraPlugins: 'tableresize,uploadfile,uploadimage',
+		extraPlugins: 'tableresize,uploadfile,uploadimage,allowsave',
 
+        uploadUrl:"xx",
+        imageUploadUrl:'xx',
+        image:'xx',
 		/*********************** File management support ***********************/
 		// In order to turn on support for file uploads, CKEditor has to be configured to use some server side
 
@@ -120,7 +124,7 @@
 
 		// Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
 		removeDialogTabs: 'image:advanced;link:advanced',
-
+       resize_enabled:false,
 		// Define the list of styles which should be available in the Styles dropdown list.
 		// If the "class" attribute is used to style an element, make sure to define the style for the class in "mystyles.css"
 		// (and on your website so that it rendered in the same way).
@@ -160,7 +164,15 @@
 			{ name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
 		]
 	} );
-console.log(CKEDITOR)
+	document.getElementById('tts').onclick=function(){
+        var getConts=CKEDITOR.instances.pageShow.getData();
+        console.log(getConts)
+	}
+
+
+    saveSinglePage=function () {
+		alert('take away')
+    }
 </script>
 </body>
 </html>
